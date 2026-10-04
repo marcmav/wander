@@ -8,21 +8,21 @@ fn main() -> io::Result<()> {
         .read(true)
         .write(true)
         .create(true)
-        .open("to_visit.json")?;
+        .open("websites.json")?;
 
     let mut content = String::new();
     f.read_to_string(&mut content)?;
 
-    let mut to_visit: WebsiteList;
+    let mut websites: WebsiteList;
     if content.is_empty() {
         // i must fetch from an API
-        to_visit = WebsiteList::new(Vec::new());
+        websites = WebsiteList::new(Vec::new());
     } else {
-        to_visit = serde_json::from_str::<WebsiteList>(&content)?;
+        websites = serde_json::from_str::<WebsiteList>(&content)?;
     }
 
     let mut cmd = Command::new("firefox");
-    cmd.arg(to_visit.get());
+    cmd.arg(websites.get());
     cmd.status()?;
 
     Ok(())
