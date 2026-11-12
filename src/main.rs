@@ -24,5 +24,6 @@ fn main() -> io::Result<()> {
     let mut cmd = Command::new("firefox");
     cmd.arg(websites.get());
     cmd.status()?;
+    
     Ok(())
 }
